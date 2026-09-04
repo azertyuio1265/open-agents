@@ -143,24 +143,40 @@ export const auth = betterAuth({
     encryptOAuthTokens: true,
     accountLinking: {
       enabled: true,
-      trustedProviders: ["vercel", "github"],
+      trustedProviders: ["vercel", "github", "google"],
       allowDifferentEmails: true,
     },
   },
 
   socialProviders: {
-    vercel: {
-      clientId: process.env.NEXT_PUBLIC_VERCEL_APP_CLIENT_ID ?? "",
-      clientSecret: process.env.VERCEL_APP_CLIENT_SECRET ?? "",
-      scope: ["openid", "email", "profile", "offline_access"],
-      overrideUserInfoOnSignIn: true,
-      mapProfileToUser: mapVercelProfileToUser,
-    },
-    github: {
-      clientId: process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID ?? "",
-      clientSecret: process.env.GITHUB_CLIENT_SECRET ?? "",
-      mapProfileToUser: mapGitHubProfileToUser,
-    },
+    ...(process.env.NEXT_PUBLIC_VERCEL_APP_CLIENT_ID && process.env.VERCEL_APP_CLIENT_SECRET
+      ? {
+          vercel: {
+            clientId: process.env.NEXT_PUBLIC_VERCEL_APP_CLIENT_ID,
+            clientSecret: process.env.VERCEL_APP_CLIENT_SECRET,
+            scope: ["openid", "email", "profile", "offline_access"],
+            overrideUserInfoOnSignIn: true,
+            mapProfileToUser: mapVercelProfileToUser,
+          },
+        }
+      : {}),
+    ...(process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID && process.env.GITHUB_CLIENT_SECRET
+      ? {
+          github: {
+            clientId: process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID,
+            clientSecret: process.env.GITHUB_CLIENT_SECRET,
+            mapProfileToUser: mapGitHubProfileToUser,
+          },
+        }
+      : {}),
+    ...(process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET
+      ? {
+          google: {
+            clientId: process.env.GOOGLE_CLIENT_ID,
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+          },
+        }
+      : {}),
   },
 
   advanced: {

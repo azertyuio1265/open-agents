@@ -1,6 +1,5 @@
 "use client";
 
-import { ClerkProvider } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import {
   Suspense,
@@ -131,17 +130,15 @@ export function Providers({ children }: { children: React.ReactNode }) {
   );
 
   return (
-    <ClerkProvider dynamic>
-      <ThemeContext.Provider value={themeContextValue}>
-        <SWRConfig value={{ onError: handleError }}>
-          {children}
-          <Suspense fallback={null}>
-            <GitHubReconnectGate />
-          </Suspense>
-        </SWRConfig>
-        <Toaster theme={resolvedTheme} />
-      </ThemeContext.Provider>
-    </ClerkProvider>
+    <ThemeContext.Provider value={themeContextValue}>
+      <SWRConfig value={{ onError: handleError }}>
+        {children}
+        <Suspense fallback={null}>
+          <GitHubReconnectGate />
+        </Suspense>
+      </SWRConfig>
+      <Toaster theme={resolvedTheme} />
+    </ThemeContext.Provider>
   );
 }
 
