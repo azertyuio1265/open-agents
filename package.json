@@ -3,9 +3,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "web": "pnpm --dir apps/web dev",
-    "dev": "turbo dev",
-    "build": "turbo build",
+    "dev": "vite --host 0.0.0.0 --port 3000",
+    "build": "tsc && vite build",
+    "start": "vite preview --host 0.0.0.0 --port 3000",
     "sandbox:snapshot-base": "node scripts/vercel-refresh-base-snapshot.ts",
     "typecheck": "turbo typecheck",
     "check": "ultracite check",
@@ -15,6 +15,8 @@
     "test:verbose": "bun test --reporter=junit --reporter-outfile /dev/stdout"
   },
   "devDependencies": {
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.7",
     "oxfmt": "^0.43.0",
     "oxlint": "1.57.0",
     "turbo": "^2.5.4",
@@ -24,5 +26,8 @@
   "engines": {
     "node": "24.x"
   },
-  "packageManager": "pnpm@11.5.1+sha512.93f7b57422ea7068257235b4c16eb60762eb68e1dc23723199cc739043ea9be2c4143274a399d8c6defa2b1176226d9ca1c4b63482d6200c1a8fbaa78c1d1485"
+  "packageManager": "pnpm@11.5.1+sha512.93f7b57422ea7068257235b4c16eb60762eb68e1dc23723199cc739043ea9be2c4143274a399d8c6defa2b1176226d9ca1c4b63482d6200c1a8fbaa78c1d1485",
+  "dependencies": {
+    "@clerk/clerk-react": "^5.61.3"
+  }
 }
