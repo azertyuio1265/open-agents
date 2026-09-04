@@ -22,7 +22,7 @@ minimumReleaseAgeIgnoreMissingTime: false
 minimumReleaseAgeStrict: true
 
 allowBuilds:
-  '@clerk/shared': set this to true or false
+  '@clerk/shared': true
   "@nestjs/core": false
   "@swc/core": true
   cbor-extract: true
